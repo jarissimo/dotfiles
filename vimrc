@@ -26,7 +26,8 @@ if dein#load_state('~/.cache/dein')
   " call dein#add('Lokaltog/powerline')
   call dein#add('vim-airline/vim-airline')
   call dein#add('vim-airline/vim-airline-themes')
-  call dein#add('Shougo/denite.nvim')
+  " call dein#add('Shougo/denite.nvim')
+  call dein#add('kien/ctrlp.vim')
   " call dein#add('python-mode/python-mode', { 'branch': 'develop' })
   call dein#add('davidhalter/jedi-vim')
   call dein#add('jmcantrell/vim-virtualenv')
@@ -97,6 +98,14 @@ let g:jedi#popup_select_first=1
 " configure vim-virtualenv
 let g:virtualenv_directory = "{$HOME}/.venvs"
 let g:virtualenv_auto_activate=1
+
+" configure ctrlp
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v([\/]\.(git|hg|svn))|(machinel_datasets)$',
+  \ 'file': '\v\.(exe|so|dll|html)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 " vim editor config
 """""""""""""""""""
@@ -198,11 +207,13 @@ nmap <leader>; gcc
 " configure buffer commands
 map <leader>bn :new<CR>
 map <leader>bs :w<CR>
-map <leader>bb :Denite buffer<CR>
+" map <leader>bb :Denite buffer<CR>
+map <leader>bb :CtrlPBuff<CR>
 map <leader>bd :b#<bar>bd#<CR>
 
 " configure file commands
-map <leader>ff :Denite file/rec<CR>
+" map <leader>ff :Denite file/rec<CR>
+map <leader>ff :CtrlP<CR>
 map <leader>fr :so %<CR>
 map <leader>fe :e $MYVIMRC<CR>
 
