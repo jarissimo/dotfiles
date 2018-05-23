@@ -1,52 +1,55 @@
-if &compatible
-  set nocompatible
-endif
-" Add the dein installation directory into runtimepath
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
-if dein#load_state('~/.cache/dein')
-  call dein#begin('~/.cache/dein')
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" custom plugins
+Plugin 'tmhedberg/SimpylFold'
+Plugin 'vim-scripts/indentpython.vim'
+Plugin 'vim-syntastic/syntastic'
+Plugin 'nvie/vim-flake8'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'tpope/vim-fugitive'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'kien/ctrlp.vim'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'tpope/vim-commentary'
+
+" color schemes
+Plugin 'jnurmine/Zenburn'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'joshdick/onedark.vim'
+Plugin 'sonph/onehalf', {'rtp': 'vim/'}
+Plugin 'chriskempson/base16-vim'
+Plugin 'jacoborus/tender.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
 
-  call dein#add('/home/jarig/.cache/dein/repos/github.com/Shougo/dein.vim')
-  " call dein#add('Shougo/deoplete.nvim')
-  if !has('nvim')
-  call dein#add('roxma/nvim-yarp')
-    call dein#add('roxma/vim-hug-neovim-rpc')
-  endif
-
-  " custom plugins
-  call dein#add('tmhedberg/SimpylFold')
-  call dein#add('vim-scripts/indentpython.vim')
-  call dein#add('vim-syntastic/syntastic')
-  call dein#add('nvie/vim-flake8')
-  call dein#add('scrooloose/nerdtree')
-  call dein#add('Xuyuanp/nerdtree-git-plugin')
-  call dein#add('tpope/vim-fugitive')
-  " call dein#add('Lokaltog/powerline')
-  call dein#add('vim-airline/vim-airline')
-  call dein#add('vim-airline/vim-airline-themes')
-  " call dein#add('Shougo/denite.nvim')
-  call dein#add('kien/ctrlp.vim')
-  " call dein#add('python-mode/python-mode', { 'branch': 'develop' })
-  call dein#add('davidhalter/jedi-vim')
-  call dein#add('jmcantrell/vim-virtualenv')
-  call dein#add('tpope/vim-commentary')
-
-  " color schemes
-  call dein#add('jnurmine/Zenburn')
-  call dein#add('altercation/vim-colors-solarized')
-  call dein#add('joshdick/onedark.vim')
-  call dein#add('sonph/onehalf', {'rtp': 'vim/'})
-  call dein#add('chriskempson/base16-vim')
-  call dein#add('jacoborus/tender.vim')
 
 
-  call dein#end()
-  call dein#save_state()
-endif
-
-filetype plugin indent on
+" filetype plugin indent on
 syntax enable
 
 " If you want to install not installed plugins on startup.
