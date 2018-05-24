@@ -1,4 +1,8 @@
 
+" TODO when installing:
+" * install packages for flake8, python-autopep8
+
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -8,11 +12,14 @@ call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
 " custom plugins
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'nvie/vim-flake8'
+" Plugin 'vim-syntastic/syntastic'
+" Plugin 'nvie/vim-flake8'
+Plugin 'W0rp/ale'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
@@ -65,6 +72,10 @@ syntax enable
 " python highlighting
 let python_highlight_all=1
 syntax on
+
+let g:ale_completion_enabled = 1
+let g:ale_linters = {'python': ['flake8']}
+let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
 
 " autocompletion
 " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
