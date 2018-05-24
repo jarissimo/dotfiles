@@ -16,12 +16,13 @@ Plugin 'nvie/vim-flake8'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
+Plugin 'vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'tpope/vim-commentary'
+Plugin 'christoomey/vim-tmux-navigator'
 
 " color schemes
 Plugin 'jnurmine/Zenburn'
@@ -45,9 +46,6 @@ filetype plugin indent on    " required
 "
 " see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
-
-
-
 
 " filetype plugin indent on
 syntax enable
@@ -98,10 +96,6 @@ let g:jedi#popup_select_first=1
 " configure python-mode
 " let g:pymode_python = 'python3'
 
-" configure vim-virtualenv
-let g:virtualenv_directory = "{$HOME}/.venvs"
-let g:virtualenv_auto_activate=1
-
 " configure ctrlp
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
@@ -143,26 +137,42 @@ au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " encoding
 set encoding=utf-8
 
-" python with virtualenv support
-" py3 << EOF
-" import os
-" import sys
-" if 'VIRTUAL_ENV' in os.environ:
-"   project_base_dir = os.environ['VIRTUAL_ENV']
-"   activate_this = os.path.join(project_base_dir, 'bin/activate')
-"   print(activate_this)
-"   # execfile(activate_this, dict(__file__=activate_this))
-"   exec(compile(open(activate_this, "rb").read(), activate_this, 'exec'), dict(__file__=activate_this))
-" EOF
+" Function to activate a virtualenv in the embedded interpreter for
+" omnicomplete and other things like that.
+function LoadVirtualEnv(path)
+    let activate_this = a:path . '/bin/activate_this.py'
+    if getftype(a:path) == "dir" && filereadable(activate_this)
+        python << EOF
+import vim
+activate_this = vim.eval('l:activate_this')
+execfile(activate_this, dict(__file__=activate_this))
+EOF
+    endif
+endfunction
 
+" Load up a 'stable' virtualenv if one exists in ~/.virtualenv
+let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
+
+" Only attempt to load this virtualenv if the defaultvirtualenv
+" actually exists, and we aren't running with a virtualenv active.
+if has("python")
+    if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
+        call LoadVirtualEnv(defaultvirtualenv)
+    endif
+endif
+
+
+" color scheme
 set background=dark
 colorscheme onedark
 
 " use sytem clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
+" set clipboard=unnamed
 
 " line numbers
 set rnu
+set nu
 
 " enable mouse conroles
 set mouse=n
