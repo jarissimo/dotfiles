@@ -135,6 +135,15 @@ au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set autoindent
 au BufNewFile,BufRead *.py set fileformat=unix
 
+" c indentation
+au BufNewFile,BufRead *.c set tabstop=4
+au BufNewFile,BufRead *.c set softtabstop=4
+au BufNewFile,BufRead *.c set shiftwidth=4
+au BufNewFile,BufRead *.c set textwidth=79
+au BufNewFile,BufRead *.c set expandtab
+au BufNewFile,BufRead *.c set autoindent
+au BufNewFile,BufRead *.c set fileformat=unix
+
 " other indentation
 au BufNewFile,BufRead *.js, *.html, *.css
 au BufNewFile,BufRead *.js, *.html, *.css set tabstop=2
@@ -195,10 +204,13 @@ set mouse=n
 """""""""""""""""""
 
 " remap escape
-:imap <SPACE>j <Esc>
+" :imap <leader>j <Esc>
 
 " change leader key
-map <SPACE> <leader>
+" map <SPACE> <leader>
+" map , <leader>
+map ; <leader>
+" map <ESC> <leader>
 set timeoutlen=300
 
 " configure splitting
@@ -225,15 +237,15 @@ nnoremap <leader>ww <C-W><C-W>
 nnoremap <leader>wd :hide<CR>
 
 " commenting
-vmap <leader>; gc
+map <leader>; gc
 nmap <leader>; gcc
 
 " configure buffer commands
-map <leader>bn :new<CR>
-map <leader>bs :w<CR>
+map <leader><SPACE>n :new<CR>
+map <leader><SPACE>s :w<CR>
 " map <leader>bb :Denite buffer<CR>
-map <leader>bb :CtrlPBuff<CR>
-map <leader>bd :b#<bar>bd#<CR>
+map <leader><SPACE><SPACE> :CtrlPBuff<CR>
+map <leader><SPACE>d :b#<bar>bd#<CR>
 
 " configure file commands
 " map <leader>ff :Denite file/rec<CR>
