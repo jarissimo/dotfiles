@@ -145,10 +145,10 @@ au BufNewFile,BufRead *.c set autoindent
 au BufNewFile,BufRead *.c set fileformat=unix
 
 " other indentation
-au BufNewFile,BufRead *.js, *.html, *.css
-au BufNewFile,BufRead *.js, *.html, *.css set tabstop=2
-au BufNewFile,BufRead *.js, *.html, *.css set softtabstop=2
-au BufNewFile,BufRead *.js, *.html, *.css set shiftwidth=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set tabstop=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set softtabstop=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set shiftwidth=2
 
 " flag uneccessary whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
