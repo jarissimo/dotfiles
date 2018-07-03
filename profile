@@ -32,3 +32,4 @@ fi
 nm-applet &
 pulseaudio --start &
 volumeicon &
+redshift &
