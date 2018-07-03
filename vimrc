@@ -19,17 +19,18 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 " Plugin 'vim-syntastic/syntastic'
 " Plugin 'nvie/vim-flake8'
-Plugin 'W0rp/ale'
+" Plugin 'W0rp/ale'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-gitgutter'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'tpope/vim-commentary'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'qpkorr/vim-bufkill'
 
 " color schemes
 Plugin 'jnurmine/Zenburn'
@@ -73,9 +74,9 @@ syntax enable
 let python_highlight_all=1
 syntax on
 
-let g:ale_completion_enabled = 1
-let g:ale_linters = {'python': ['flake8']}
-let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
+" let g:ale_completion_enabled = 1
+" let g:ale_linters = {'python': ['flake8']}
+" let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
 
 " autocompletion
 " let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
@@ -102,7 +103,11 @@ endif
 let g:airline_theme='onedark'
 
 " configure jedi auto completion
+let g:jedi#popup_on_dot=0
 let g:jedi#popup_select_first=1
+let g:jedi#show_call_signatures=2
+let g:jedi#force_py_version=3
+let g:jedi#smart_auto_mappings=0
 
 " configure python-mode
 " let g:pymode_python = 'python3'
@@ -118,6 +123,11 @@ let g:ctrlp_custom_ignore = {
 " vim editor config
 """""""""""""""""""
 
+" if using an old terminal emulator, this fixes the command line mode
+if has("nvim")
+    set guicursor=
+endif
+
 " Enable folding
 set foldmethod=indent
 set foldlevel=9
@@ -130,7 +140,7 @@ let g:SimpylFold_docstring_preview=1
 au BufNewFile,BufRead *.py set tabstop=4
 au BufNewFile,BufRead *.py set softtabstop=4
 au BufNewFile,BufRead *.py set shiftwidth=4
-au BufNewFile,BufRead *.py set textwidth=79
+" au BufNewFile,BufRead *.py set textwidth=80
 au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set autoindent
 au BufNewFile,BufRead *.py set fileformat=unix
@@ -243,15 +253,14 @@ nmap <leader>; gcc
 " configure buffer commands
 map <leader><SPACE>n :new<CR>
 map <leader><SPACE>s :w<CR>
-" map <leader>bb :Denite buffer<CR>
 map <leader><SPACE><SPACE> :CtrlPBuff<CR>
-map <leader><SPACE>d :b#<bar>bd#<CR>
+map <leader><SPACE>d :BD<CR>
 
 " configure file commands
-" map <leader>ff :Denite file/rec<CR>
-map <leader>ff :CtrlP<CR>
+" map <leader>ff :CtrlP<CR>
+map <leader>ff :CtrlPMRUFiles<CR>
 map <leader>fr :so %<CR>
-map <leader>fe :e $MYVIMRC<CR>
+map <leader>fe :e ~/.vimrc<CR>
 
 " configure nerdtree
 " map <leader>N :NERDTreeToggle<CR>
@@ -263,3 +272,6 @@ nmap <leader>gs :Gstatus<CR>
 nmap <leader>gl :Glog --format=oneline --<CR>
 nmap <leader>gp :Gpull<CR>
 
+" copy and paste a word
+nmap <leader>c  viw"xy
+nmap <leader>v  viw"xp
