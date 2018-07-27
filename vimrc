@@ -1,6 +1,6 @@
 
 " TODO when installing:
-" * install packages for flake8, python-autopep8
+" * install pip packages for flake8 and yapf
 
 
 set nocompatible              " be iMproved, required
@@ -19,7 +19,10 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
 " Plugin 'vim-syntastic/syntastic'
 " Plugin 'nvie/vim-flake8'
-" Plugin 'W0rp/ale'
+" Plugin 'tell-k/vim-autopep8'
+Plugin 'mindriot101/vim-yapf'
+Plugin 'W0rp/ale'
+Plugin 'vim-vdebug/vdebug'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'tpope/vim-fugitive'
@@ -58,11 +61,6 @@ filetype plugin indent on    " required
 " filetype plugin indent on
 syntax enable
 
-" If you want to install not installed plugins on startup.
-"if dein#check_install()
-"  call dein#install()
-"endif
-
 """""""""""""""
 " custom config
 """""""""""""""
@@ -75,14 +73,10 @@ let python_highlight_all=1
 syntax on
 
 " let g:ale_completion_enabled = 1
-" let g:ale_linters = {'python': ['flake8']}
-" let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'autopep8']}
-
-" autocompletion
-" let g:ycm_path_to_python_interpreter = '/usr/bin/python3'
-" let g:ycm_autoclose_preview_window_after_completion=1
-" map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
+let g:ale_linters = {'python': ['flake8']}
+let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'yapf']}
+let g:ale_lint_on_save = 1
+"
 " configure nerdtree
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 autocmd StdinReadPre * let s:std_in=1
@@ -120,13 +114,20 @@ let g:ctrlp_custom_ignore = {
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
+
 " vim editor config
 """""""""""""""""""
 
 " if using an old terminal emulator, this fixes the command line mode
-if has("nvim")
-    set guicursor=
-endif
+" if has("nvim")
+"     set guicursor=
+" endif
+
+" change cursor shapes
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
+let &t_SI = "\<esc>[5 q"
+let &t_SR = "\<esc>[3 q"
+let &t_EI = "\<esc>[2 q"
 
 " Enable folding
 set foldmethod=indent
@@ -155,10 +156,12 @@ au BufNewFile,BufRead *.c set autoindent
 au BufNewFile,BufRead *.c set fileformat=unix
 
 " other indentation
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml
 au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set tabstop=2
 au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set softtabstop=2
 au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set shiftwidth=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set expandtab
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set autoindent
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set fileformat=unix
 
 " flag uneccessary whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
@@ -208,19 +211,17 @@ set nu
 set mouse=n
 
 " allow virtual editing of 1 char behind end
-:set virtualedit=onemore
+" :set virtualedit=onemore
+
+" remove trailing whitespace on save
+autocmd BufWritePre * :%s/\s\+$//e
+
 
 " keymapping config
 """""""""""""""""""
 
-" remap escape
-" :imap <leader>j <Esc>
-
 " change leader key
-" map <SPACE> <leader>
-" map , <leader>
 map ; <leader>
-" map <ESC> <leader>
 set timeoutlen=300
 
 " configure splitting
@@ -235,7 +236,7 @@ nnoremap <leader>wh :sp<CR>
 " map <C-a> <left>
 " map <C-d> <right>
 
-" editing 
+" editing
 inoremap <leader>w dw
 
 " split navigations
@@ -264,7 +265,6 @@ map <leader>fe :e ~/.vimrc<CR>
 
 " configure nerdtree
 " map <leader>N :NERDTreeToggle<CR>
-" map <leader>n :NERDTree<CR>
 map <leader>t :NERDTree<CR>
 
 " configure fugitive git plugin
@@ -275,3 +275,6 @@ nmap <leader>gp :Gpull<CR>
 " copy and paste a word
 nmap <leader>c  viw"xy
 nmap <leader>v  viw"xp
+
+" map ale commands
+nmap <leader>af :ALEFix<CR>
