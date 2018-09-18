@@ -29,7 +29,7 @@ fi
 # permanently switch esc and caps lock
 /usr/bin/setxkbmap -option "caps:swapescape"
 
-nm-applet &
+# nm-applet &
 pulseaudio --start &
-volumeicon &
+# volumeicon &
 redshift &
