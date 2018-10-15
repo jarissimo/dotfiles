@@ -276,5 +276,9 @@ nmap <leader>gp :Gpull<CR>
 nmap <leader>c  viw"xy
 nmap <leader>v  viw"xp
 
+" copy and paste a line
+nmap <leader>C V"ly
+nmap <leader>V V"lp
+
 " map ale commands
 nmap <leader>af :ALEFix<CR>
