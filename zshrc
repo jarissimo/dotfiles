@@ -65,8 +65,8 @@ source $ZSH/oh-my-zsh.sh
 # source ${HOME}/.tensorflow-venv/bin/activate
 export WORKON_HOME=$HOME/.virtualenvs
 export PROJECT_HOME=$HOME/Devel
+export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3.6'
 source $HOME/.local/bin/virtualenvwrapper.sh
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 
 # add cupti to lib path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64/
@@ -122,6 +122,8 @@ alias tfu="cd ~/Development/tensorflow_utils"
 alias tfdu="cd ~/Development/tensorflow_dataset_utils"
 alias tfr="cd ~/Development/tensorflow_resnet"
 alias tfv="cd ~/Development/tensorflow_vgg16"
+alias tfx="cd ~/Development/tensorflow_xception"
+alias ha="cd ~/Development/hal_attacks"
 
 alias activate_dev="virtualenv --clear --python=/usr/bin/python3.6  ~/Development/.dev-venv && source ~/Development/.dev-venv/bin/activate"
 alias activate_test="virtualenv --clear --python=/usr/bin/python3.6  ~/Testing/.test-venv && source ~/Testing/.test-venv/bin/activate"
