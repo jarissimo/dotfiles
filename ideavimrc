@@ -1,0 +1,55 @@
+map ; <leader>
+
+set number
+set incsearch
+set hlsearch
+set clipboard=unnamed
+
+xnoremap p "_dP
+nmap H ^
+vmap H ^
+nmap L $
+vmap L $
+
+" create splits
+nmap <leader>wv :vsp<CR>
+nmap <leader>wh :sp<CR>
+
+" navigate windows
+nmap <C-J> :action VimWindowDown<CR>
+nmap <C-K> :action VimWindowUp<CR>
+nmap <C-L> :action VimWindowRight<Cr>
+nmap <C-H> :action VimWindowLeft<CR>
+nmap <C-W><C-w> :next<CR>
+nmap <leader>ww :next<CR>
+nmap <leader>wd :hide<CR>
+nmap <leader>fd :q!<CR>
+
+
+" nmap <leader>/ /
+map <leader>; :action CommentByLineComment<CR>
+
+" tool window navigation
+nmap <leader>tc :action CloseActiveTab<CR>
+nmap <leader>tn :action ActivateProjectToolWindow<CR>
+nmap <leader>tp :action ActivatePythonConsoleToolWindow<CR>
+nmap <leader>tt :action ActivateTerminalToolWindow<CR>
+
+" searching and gotos
+nmap <leader>gg :action RecentFiles<CR>
+nmap <leader>gf :action GotoFile<CR>
+nmap <leader>gc :action GotoClass<CR>
+nmap <leader>gd :action GotoDeclaration<CR>
+nmap <leader>gb :action Back<CR>
+nmap <leader>gu :action FindUsages<CR>
+
+" running, debugging...
+nmap <leader>rc :action ChooseRunConfiguration<CR>
+nmap <leader>rr :action Run<CR>
+nmap <leader>rd :action Debug<CR>
+nmap <leader>rb :action ToggleLineBreakpoint<CR>
+
+" formating
+nmap <leader>fe :action RenameElement<CR>
+nmap <leader>ff :action YAPFReformatCode<CR>
+nmap <leader>fi :action OptimizeImports<CR>

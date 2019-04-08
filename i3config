@@ -157,6 +157,11 @@ bindsym $mod+r mode "resize"
 # bind keys to swith workspaces
 bindsym $mod+n workspace next
 
+# disable title bar
+for_window [class="^.*"] border pixel 1
+new_window 1pixel
+
+exec --no-startup-id "xrandr --output DVI-D-0 --left-of DP-4 --auto"
 exec --no-startup-id "i3-msg 'workspace 1; append_layout ~/.config/i3/workspace-1.json'"
 exec --no-startup-id "exec firefox"
 exec --no-startup-id "exec gnome-terminal"
@@ -165,7 +170,7 @@ exec --no-startup-id "i3-msg 'workspace 2; exec gnome-terminal'"
 
 
 exec "setxkbmap -option 'caps:swapescape'"
-exec "volumeicon &"
+# exec "volumeicon &"
 exec "nm-applet &"
 
 # set keyboard layout and create keybindings for toggle
@@ -175,5 +180,8 @@ bindsym $mod+Shift+s exec "i3lock -n; setxkbmap -layout us,de; setxkbmap -option
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+                # mode hide
+                # hidden_state hide
+                # modifier Mod1
 				status_command i3status --config ~/.config/i3/i3status.conf
 }

@@ -20,7 +20,7 @@ Plugin 'vim-scripts/indentpython.vim'
 " Plugin 'vim-syntastic/syntastic'
 " Plugin 'nvie/vim-flake8'
 " Plugin 'tell-k/vim-autopep8'
-Plugin 'mindriot101/vim-yapf'
+" Plugin 'mindriot101/vim-yapf'
 Plugin 'W0rp/ale'
 Plugin 'vim-vdebug/vdebug'
 Plugin 'scrooloose/nerdtree'
@@ -73,6 +73,7 @@ let python_highlight_all=1
 syntax on
 
 " let g:ale_completion_enabled = 1
+let g:ale_python_yapf_executable = 'yapf3'
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_fixers = {'python': ['remove_trailing_lines', 'trim_whitespace', 'yapf']}
 let g:ale_lint_on_save = 1
@@ -204,7 +205,7 @@ set clipboard=unnamedplus
 " set clipboard=unnamed
 
 " line numbers
-set rnu
+" set rnu
 set nu
 
 " enable mouse conroles
