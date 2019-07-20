@@ -157,12 +157,19 @@ au BufNewFile,BufRead *.c set autoindent
 au BufNewFile,BufRead *.c set fileformat=unix
 
 " other indentation
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set tabstop=2
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set softtabstop=2
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set shiftwidth=2
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set expandtab
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set autoindent
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml set fileformat=unix
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set tabstop=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set softtabstop=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set shiftwidth=2
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set expandtab
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set autoindent
+au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set fileformat=unix
+
+au BufNewFile,BufRead *.tex set tabstop=2
+au BufNewFile,BufRead *.tex set softtabstop=2
+au BufNewFile,BufRead *.tex set shiftwidth=2
+au BufNewFile,BufRead *.tex set expandtab
+au BufNewFile,BufRead *.tex set autoindent
+au BufNewFile,BufRead *.tex set fileformat=unix
 
 " flag uneccessary whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred

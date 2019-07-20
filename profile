@@ -26,11 +26,15 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+# disable trackpad
+xinput --disable 11
 # permanently switch esc and caps lock
 /usr/bin/setxkbmap -option "caps:swapescape"
+# switch to us
 /usr/bin/setxkbmap -layout us
 
-# nm-applet &
+nm-applet &
 pulseaudio --start &
-# volumeicon &
+volumeicon &
 redshift &
+xfce4-power-manager &
