@@ -3,63 +3,55 @@
 " * install pip packages for flake8 and yapf
 
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+if &compatible
+    set nocompatible
+endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
+" Load packager only when you need it
+function! PackagerInit() abort
+    packadd vim-packager
+    call packager#init()
+    call packager#add('kristijanhusak/vim-packager', { 'type': 'opt' })
 
-" let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-" custom plugins
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-" Plugin 'vim-syntastic/syntastic'
-" Plugin 'nvie/vim-flake8'
-" Plugin 'tell-k/vim-autopep8'
-" Plugin 'mindriot101/vim-yapf'
-Plugin 'W0rp/ale'
-Plugin 'vim-vdebug/vdebug'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-gitgutter'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'qpkorr/vim-bufkill'
+    """"
+    " packages that should always be active
+    """"
+    call packager#add('tmhedberg/SimpylFold')
+    call packager#add('W0rp/ale')
+    " call packager#add('vim-vdebug/vdebug')
+    call packager#add('scrooloose/nerdtree')
+    call packager#add('Xuyuanp/nerdtree-git-plugin')
+    call packager#add('airblade/vim-gitgutter')
+    call packager#add('vim-airline/vim-airline')
+    call packager#add('vim-airline/vim-airline-themes')
+    call packager#add('ctrlpvim/ctrlp.vim')
+    call packager#add('tpope/vim-commentary')
+    " call packager#add('christoomey/vim-tmux-navigator')
+    call packager#add('qpkorr/vim-bufkill')
 
-" color schemes
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'joshdick/onedark.vim'
-Plugin 'sonph/onehalf', {'rtp': 'vim/'}
-Plugin 'chriskempson/base16-vim'
-Plugin 'jacoborus/tender.vim'
+    """"
+    " packages that should be loaded on demand
+    """"
+    " colortheme
+    call packager#add('joshdick/onedark.vim', {'type': 'opt'})
+    " python packages
+    call packager#add('davidhalter/jedi-vim', { 'type': 'opt'})
+    call packager#add('vim-scripts/indentpython.vim', { 'type': 'opt'})
 
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+endfunction
 
-" filetype plugin indent on
-syntax enable
+command! PackagerInstall call PackagerInit() | call packager#install()
+command! -bang PackagerUpdate call PackagerInit() | call packager#update({ 'force_hooks': '<bang>' })
+command! PackagerClean call PackagerInit() | call packager#clean()
+command! PackagerStatus call PackagerInit() | call packager#status()
+
+"Load plugins only for specific filetype
+augroup packager_filetype
+    autocmd!
+    autocmd FileType python packadd jedi-vim
+    autocmd FileType python packadd indentpython.vim
+augroup END
+
 
 """""""""""""""
 " custom config
@@ -83,9 +75,6 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-" configure powerline
-" let g:powerline_pycmd = 'py3'
-
 " configure airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#virtualenv#enabled = 1
@@ -104,9 +93,6 @@ let g:jedi#show_call_signatures=2
 let g:jedi#force_py_version=3
 let g:jedi#smart_auto_mappings=0
 
-" configure python-mode
-" let g:pymode_python = 'python3'
-
 " configure ctrlp
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
@@ -119,107 +105,41 @@ let g:ctrlp_custom_ignore = {
 " vim editor config
 """""""""""""""""""
 
-" if using an old terminal emulator, this fixes the command line mode
-" if has("nvim")
-"     set guicursor=
-" endif
-
 " change cursor shapes
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 let &t_SI = "\<esc>[5 q"
 let &t_SR = "\<esc>[3 q"
 let &t_EI = "\<esc>[2 q"
 
+" color scheme
+set background=dark
+packadd onedark.vim
+colorscheme onedark
+
+filetype plugin indent on
+syntax enable
+
+set expandtab
+set autoindent
+set fileformat=unix
+set encoding=utf-8
+" system clipboard plus
+set clipboard=unnamedplus
+" line numbers
+set nu
+" enable mouse conroles
+set mouse=n
+
 " Enable folding
 set foldmethod=indent
 set foldlevel=9
-
+let g:SimpylFold_docstring_preview=1
 " Enable folding with the spacebar
 " nnoremap <space> za
-let g:SimpylFold_docstring_preview=1
-
-" python indentation
-au BufNewFile,BufRead *.py set tabstop=4
-au BufNewFile,BufRead *.py set softtabstop=4
-au BufNewFile,BufRead *.py set shiftwidth=4
-" au BufNewFile,BufRead *.py set textwidth=80
-au BufNewFile,BufRead *.py set expandtab
-au BufNewFile,BufRead *.py set autoindent
-au BufNewFile,BufRead *.py set fileformat=unix
-
-" c indentation
-au BufNewFile,BufRead *.c set tabstop=4
-au BufNewFile,BufRead *.c set softtabstop=4
-au BufNewFile,BufRead *.c set shiftwidth=4
-au BufNewFile,BufRead *.c set textwidth=79
-au BufNewFile,BufRead *.c set expandtab
-au BufNewFile,BufRead *.c set autoindent
-au BufNewFile,BufRead *.c set fileformat=unix
-
-" other indentation
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set tabstop=2
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set softtabstop=2
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set shiftwidth=2
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set expandtab
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set autoindent
-au BufNewFile,BufRead *.js, *.html, *.css, *.yaml, *.tex set fileformat=unix
-
-au BufNewFile,BufRead *.tex set tabstop=2
-au BufNewFile,BufRead *.tex set softtabstop=2
-au BufNewFile,BufRead *.tex set shiftwidth=2
-au BufNewFile,BufRead *.tex set expandtab
-au BufNewFile,BufRead *.tex set autoindent
-au BufNewFile,BufRead *.tex set fileformat=unix
 
 " flag uneccessary whitespace
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-" encoding
-set encoding=utf-8
-
-" Function to activate a virtualenv in the embedded interpreter for
-" omnicomplete and other things like that.
-function LoadVirtualEnv(path)
-    let activate_this = a:path . '/bin/activate_this.py'
-    if getftype(a:path) == "dir" && filereadable(activate_this)
-        python << EOF
-import vim
-activate_this = vim.eval('l:activate_this')
-execfile(activate_this, dict(__file__=activate_this))
-EOF
-    endif
-endfunction
-
-" Load up a 'stable' virtualenv if one exists in ~/.virtualenv
-let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
-
-" Only attempt to load this virtualenv if the defaultvirtualenv
-" actually exists, and we aren't running with a virtualenv active.
-if has("python")
-    if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
-        call LoadVirtualEnv(defaultvirtualenv)
-    endif
-endif
-
-
-" color scheme
-set background=dark
-colorscheme onedark
-
-" use sytem clipboard
-set clipboard=unnamedplus
-" set clipboard=unnamed
-
-" line numbers
-" set rnu
-set nu
-
-" enable mouse conroles
-set mouse=n
-
-" allow virtual editing of 1 char behind end
-" :set virtualedit=onemore
 
 " remove trailing whitespace on save
 autocmd BufWritePre * :%s/\s\+$//e
@@ -237,12 +157,6 @@ set splitbelow
 set splitright
 nnoremap <leader>wv :vsp<CR>
 nnoremap <leader>wh :sp<CR>
-
-" navigation
-" map <C-w> <up>
-" map <C-s> <down>
-" map <C-a> <left>
-" map <C-d> <right>
 
 " editing
 inoremap <leader>w dw
@@ -272,13 +186,7 @@ map <leader>fr :so %<CR>
 map <leader>fe :e ~/.vimrc<CR>
 
 " configure nerdtree
-" map <leader>N :NERDTreeToggle<CR>
-map <leader>t :NERDTree<CR>
-
-" configure fugitive git plugin
-nmap <leader>gs :Gstatus<CR>
-nmap <leader>gl :Glog --format=oneline --<CR>
-nmap <leader>gp :Gpull<CR>
+map <leader>t :NERDTreeToggle<CR>
 
 " copy and paste a word
 nmap <leader>c  viw"xy
