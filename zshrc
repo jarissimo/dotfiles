@@ -2,7 +2,7 @@
    export PATH=$HOME/.local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/jannis/.oh-my-zsh
+  export ZSH=/home/jarig/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -11,9 +11,10 @@
 
 	# set different theme with prompt command
 	# fixes that no new theme is accepted
-	prompt fade
+	# prompt fade
 
 	ZSH_THEME="af-magic"
+  	#ZSH_THEME="robbyrussell"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -97,11 +98,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64/
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-# alias vim="/usr/bin/vim.nox"
 alias vim='nvim.appimage'
 alias python='python3.6'
-alias nautilus="nautilus --no-desktop"
-alias ec='emacsclient'
 # make && cd
 function mdc {
     mkdir $1;
@@ -112,18 +110,6 @@ function cdl {
     cd $1;
     ls;
 }
-
-# repo aliases for convenience
-alias tfp="cd ~/Development/tensorflow_playground"
-alias tfs="cd ~/Development/tensorflow_segnet"
-#alias tfs="cd ~/Development/tensorflow_segnet_clean"
-alias tft="cd ~/Development/tensorflow_templates"
-alias tfu="cd ~/Development/tensorflow_utils"
-alias tfdu="cd ~/Development/tensorflow_dataset_utils"
-alias tfr="cd ~/Development/tensorflow_resnet"
-alias tfv="cd ~/Development/tensorflow_vgg16"
-alias tfx="cd ~/Development/tensorflow_xception"
-alias ha="cd ~/Development/hal_attacks"
 
 alias activate_dev="virtualenv --clear --python=/usr/bin/python3.6  ~/Development/.dev-venv && source ~/Development/.dev-venv/bin/activate"
 alias activate_test="virtualenv --clear --python=/usr/bin/python3.6  ~/Testing/.test-venv && source ~/Testing/.test-venv/bin/activate"
