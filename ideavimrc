@@ -20,11 +20,10 @@ nmap <C-J> :action VimWindowDown<CR>
 nmap <C-K> :action VimWindowUp<CR>
 nmap <C-L> :action VimWindowRight<Cr>
 nmap <C-H> :action VimWindowLeft<CR>
-nmap <C-W><C-w> :next<CR>
-nmap <leader>ww :next<CR>
-nmap <leader>wd :hide<CR>
-nmap <leader>fd :q!<CR>
-
+nmap <C-I> :action PreviousTab<CR>
+nmap <C-O> :action NextTab<CR>
+map <leader>n :action NextTab<CR>
+map <leader>b :action PreviousTab<CR>
 
 " nmap <leader>/ /
 map <leader>; :action CommentByLineComment<CR>
@@ -34,6 +33,7 @@ nmap <leader>tc :action CloseActiveTab<CR>
 nmap <leader>tn :action ActivateProjectToolWindow<CR>
 nmap <leader>tp :action ActivatePythonConsoleToolWindow<CR>
 nmap <leader>tt :action ActivateTerminalToolWindow<CR>
+nmap <leader>ti :action InspectCode<CR>
 
 " searching and gotos
 nmap <leader>gg :action RecentFiles<CR>
