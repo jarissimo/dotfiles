@@ -69,6 +69,9 @@ export PROJECT_HOME=$HOME/Devel
 export VIRTUALENVWRAPPER_PYTHON='/usr/bin/python3.6'
 source $HOME/.local/bin/virtualenvwrapper.sh
 
+# activate dev virtenv
+workon dev
+
 # add cupti to lib path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64/
 
