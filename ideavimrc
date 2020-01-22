@@ -51,5 +51,6 @@ nmap <leader>rb :action ToggleLineBreakpoint<CR>
 
 " formating
 nmap <leader>fe :action RenameElement<CR>
-nmap <leader>ff :action YAPFReformatCode<CR>
+" nmap <leader>ff :action YAPFReformatCode<CR>
+nmap <leader>ff :%!yapf --style={column_limit:120}<CR>
 nmap <leader>fi :action OptimizeImports<CR>
